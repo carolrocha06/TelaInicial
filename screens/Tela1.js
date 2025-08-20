@@ -2,7 +2,10 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import Casual from '../assets/Casual_dog.png';
 import Google from '../assets/Google.png';
 
-export default function Tela1() {
+const Tela1 = ({ navigation }) => {
+    const navegarLogin = () => {
+        navigation.navigate("Login");
+    }
     return (
         <View style={styles.container}>
             <Image
@@ -57,3 +60,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     }
 });
+
+export default Tela1;
