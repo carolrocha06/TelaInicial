@@ -3,9 +3,6 @@ import Casual from '../assets/Casual_dog.png';
 import Google from '../assets/Google.png';
 
 const Tela1 = ({ navigation }) => {
-    const navegarLogin = () => {
-        navigation.navigate("Login");
-    }
     return (
         <View style={styles.container}>
             <Image
@@ -17,8 +14,9 @@ const Tela1 = ({ navigation }) => {
             <Text style={styles.subtitulo}>Como deseja acessar? </Text>
 
             <TouchableOpacity
-                style={{ height: 70, width: 300, backgroundColor: '#2cb859', padding: 9, borderColor: "white", borderWidth: 2, borderRadius: 5, marginTop: 45, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', gap: 35 }} >
-
+                style={{ height: 70, width: 300, backgroundColor: '#2cb859', padding: 9, borderColor: "white", borderWidth: 2, borderRadius: 5, marginTop: 45, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', gap: 35 }}
+                onPress={() => navigation.navigate('Login')} // exemplo do pdf: onPress={() => alert('Você já clicou!')}
+            >
                 <Image
                     source={Google}
                     style={{ height: 40, width: 40 }}
