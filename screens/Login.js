@@ -2,11 +2,13 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'reac
 import Google from '../assets/Google.png';
 import Facebook from '../assets/Facebook.png';
 import { useState } from "react";
+import { Ionicons } from '@expo/vector-icons'; // se quiser usar icones do expo, como a setinha verde estilizada
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("");// estados são como caixinhas onde guardamos informações que podemos mudar
     const [senha, setSenha] = useState("");// sempre que algo é alterado, essas caixinhas mudam e a tela reflete as mudancas
     const [lembrar, setLembrar] = useState(false);// exemplo de checkbox
+
     return (
         <View style={styles.container}>
 
@@ -14,7 +16,7 @@ const Login = ({ navigation }) => {
                 style={{ position: 'absolute', top: 40, left: 20, zIndex: 1 }}
                 onPress={() => navigation.goBack()} // setinha verde estilizada para voltar (nao é a padrao do cabecalho)
             >
-                <Text style={{ fontSize: 32, color: '#2cb859' }}>{'<'}</Text>{/* setinha exatamente como no pdf*/}
+                <Text style={{ fontSize: 32, color: '#2cb859' }}>{'<'}</Text>
             </TouchableOpacity>
 
             <Text style={styles.titulo}>Acesse</Text>
@@ -34,14 +36,22 @@ const Login = ({ navigation }) => {
             <TextInput
                 style={styles.input}
                 placeholder="Digite sua senha"
-                keyboardType="numeric" // teclado apenas com numeros (igual no pdf)
+                keyboardType="default" // teclado "alfanumérico"
                 value={senha}
                 onChangeText={setSenha}
-                secureTextEntry // para deixar a senha sem mostrar os caracteres
+                secureTextEntry={!senhaVisivel} // para deixar a senha sem mostrar os caracteres
                 placeholderTextColor="#aaa"
-            />
+            >  
+            <TouchableOpacity onPress={() =>  
+                <Ionicons 
+                name= {senhaVisivel ? "eye" : "eye-off-outline"}
+                size={24} 
+                color={'black'} > 
+                
+                </TouchableOpacity>
+            </TextInput>
 
-            <View style={styles.optionsRow}>{/*checkbox para lembrar senha*/}
+            <View style={styles.optionsRow}>
                 <TouchableOpacity
                     style={{ flexDirection: 'row', alignItems: 'center' }}// row para alinhar o texto e a caixa de seleção
                     onPress={() => setLembrar(!lembrar)}
@@ -56,10 +66,10 @@ const Login = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 300, marginTop: 10 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 300, marginTop: 90 }}>
                 <TouchableOpacity
                     style={{ marginRight: 18, height: 58, width: 170, backgroundColor: '#2cb859', borderRadius: 5, justifyContent: 'center', alignItems: 'center', marginLeft: 30 }}>
-                    <Text style={styles.mensagem}>Acessar</Text> {/* botao para Acessar*/}
+                    <Text style={styles.mensagem}>Acessar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -68,13 +78,13 @@ const Login = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 70, width: '100%' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 65, width: '100%' }}>
                 <View style={{ flex: 1, height: 1, backgroundColor: '#ddd' }} />
                 <Text style={{ alignItems: 'center', justifyContent: 'center', marginHorizontal: 10, color: '#888', fontSize: 14, fontWeight: 'bold' }}>Ou continue com</Text>
                 <View style={{ flex: 1, height: 1, backgroundColor: '#ddd' }} />
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 29, gap: 35 }}> {/* espaço entre as duas imagens */}
+            <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 40, gap: 35 }}> 
                 <TouchableOpacity>
                     <Image
                         source={Google}
@@ -135,7 +145,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginLeft: 30,
     },
-    
     optionsRow: {
         marginTop: 10,
         marginLeft: 30,
