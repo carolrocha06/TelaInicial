@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons'; // se quiser usar icones do expo,
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState("");// estados são como caixinhas onde guardamos informações que podemos mudar
     const [senha, setSenha] = useState("");// sempre que algo é alterado, essas caixinhas mudam e a tela reflete as mudancas
+    const [senhaVisivel, setSenhaVisivel] = useState(false); // para mostrar ou esconder a senha
     const [lembrar, setLembrar] = useState(false);// exemplo de checkbox
 
     return (
@@ -33,32 +34,38 @@ const Login = ({ navigation }) => {
             />
 
             <Text style={styles.texto}>Senha</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Digite sua senha"
-                keyboardType="default" // teclado "alfanumérico"
-                value={senha}
-                onChangeText={setSenha}
-                secureTextEntry={!senhaVisivel} // para deixar a senha sem mostrar os caracteres
-                placeholderTextColor="#aaa"
-            >  
-            <TouchableOpacity onPress={() =>  
-                <Ionicons 
-                name= {senhaVisivel ? "eye" : "eye-off-outline"}
-                size={24} 
-                color={'black'} > 
-                
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite sua senha"
+                    keyboardType="default" // teclado "alfanumérico"
+                    value={senha}
+                    onChangeText={setSenha}
+                    secureTextEntry={!senhaVisivel} // para deixar a senha sem mostrar os caracteres
+                    placeholderTextColor="#aaa"
+                />
+                <TouchableOpacity onPress={() => setSenhaVisivel(!senhaVisivel)} style={{ position: 'absolute', right: 10, top: 18 }}>
+                    <Ionicons
+                        name={senhaVisivel ? "eye" : "eye-off"}
+                        size={24}
+                        color={'black'}
+                    />
                 </TouchableOpacity>
-            </TextInput>
+            
+
+            </View>
 
             <View style={styles.optionsRow}>
                 <TouchableOpacity
-                    style={{ flexDirection: 'row', alignItems: 'center' }}// row para alinhar o texto e a caixa de seleção
+                    style={{ flexDirection: 'row', alignItems: 'center' }}
                     onPress={() => setLembrar(!lembrar)}
                 >
-                    <Text style={{ fontSize: 20, marginRight: 5 }}>
-                        {lembrar ? '☑' : '☐'}
-                    </Text>
+                    <Ionicons
+                        name={lembrar ? "checkbox" : "square-outline"}
+                        size={24}
+                        color="#2cb859"
+                        style={{ marginRight: 5 }}
+                    />
                     <Text style={{ fontSize: 14 }}>Lembrar senha</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
@@ -84,7 +91,7 @@ const Login = ({ navigation }) => {
                 <View style={{ flex: 1, height: 1, backgroundColor: '#ddd' }} />
             </View>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 40, gap: 35 }}> 
+            <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 40, gap: 35 }}>
                 <TouchableOpacity>
                     <Image
                         source={Google}
